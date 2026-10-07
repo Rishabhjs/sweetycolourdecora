@@ -79,3 +79,7 @@ The Vercel deployment uses Node.js 22. The current application database is SQLit
 npm start
 # Open in browser: http://localhost:3000
 ```
+
+## Android APK
+
+The Android app opens the public Vercel site and requires an internet connection. Push changes under `android/` or `.github/workflows/android-apk.yml` to `main`, or manually run the **Android APK** workflow from the GitHub Actions tab. Download `sweety-colour-decora-debug-apk` from the completed workflow run's artifacts and install the APK on an Android device.
