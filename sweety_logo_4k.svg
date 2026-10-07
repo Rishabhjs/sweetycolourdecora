@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 360" width="100%" height="100%" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&amp;family=Montserrat:wght@600;700&amp;display=swap');
+      .title-text {
+        font-family: 'Oswald', 'Impact', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-weight: 700;
+        font-size: 148px;
+        fill: #FFFFFF;
+        letter-spacing: 0.045em;
+        text-transform: uppercase;
+      }
+      .trademark-text {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 34px;
+        fill: #FFFFFF;
+      }
+      .tagline-text {
+        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-weight: 700;
+        font-size: 42px;
+        fill: #FFFFFF;
+        letter-spacing: 0.38em;
+        text-transform: uppercase;
+      }
+      .shadow-filter {
+        filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.9));
+      }
+    </style>
+    <filter id="crispGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <!-- Deep Obsidian 4K Solid Background -->
+  <rect width="1600" height="360" fill="#000000"/>
+
+  <g class="shadow-filter" filter="url(#crispGlow)">
+    <!-- Main Wordmark -->
+    <text x="770" y="195" text-anchor="middle" class="title-text">SWEETY COLOUR DECORA</text>
+    <!-- Registered / TM Badge -->
+    <text x="1440" y="112" text-anchor="middle" class="trademark-text">&#174;</text>
+
+    <!-- Subtitle Tagline -->
+    <text x="800" y="278" text-anchor="middle" class="tagline-text">BUILDING LANDMARKS SINCE 2003</text>
+  </g>
+</svg>

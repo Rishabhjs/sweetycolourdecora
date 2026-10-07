@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Total Operational Clarity — Construction OS | Sweety Colour Decora</title>
+  <meta name="description" content="Total Operational Clarity. Sweety Colour Decora's enterprise Construction Operating System for turnkey project tracking, master craftsmen workforce, daily attendance, verified photographic logs, materials procurement, and SQL-grounded AI intelligence.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* STANDALONE FULL-SCREEN APPLICATION SHELL */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--os-bg, #090A0D);
+      font-family: var(--font-body, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif);
+      color: var(--os-text-primary, #FFFFFF);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #construction-os-root {
+      display: flex !important;
+      position: relative !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      inset: auto !important;
+      z-index: 1 !important;
+    }
+
+    #osBackdrop {
+      display: none !important;
+    }
+
+    .os-container {
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: 100% !important;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- The Construction OS container will be mounted directly here by portal.js -->
+  <div id="construction-os-root" class="construction-os-wrapper construction-os-standalone">
+    <!-- Populated dynamically by portal.js -->
+  </div>
+
+  <script>
+    // Flag that this page is running in standalone full-screen mode
+    window.IS_STANDALONE_OS = true;
+
+    // Theme sync with localStorage
+    const savedTheme = localStorage.getItem('scd_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  </script>
+  <script src="portal.js"></script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack Spread &middot; Architectural Spatial Visualizer &mdash; Sweety Colour Decora</title>
+  <meta name="description" content="Interactive scroll-driven spatial visualizer showcasing 20+ years of luxury turnkey architectural craftsmanship.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: '#C1592B',
+            gold: '#C98838',
+            obsidian: '#000000',
+            card: '#0A0A0A'
+          },
+          fontFamily: {
+            serif: ['Fraunces', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #000000;
+      color: #FFFFFF;
+      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+    .card-element {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      will-change: transform;
+      transition: box-shadow 0.3s ease;
+    }
+    .card-element:hover {
+      box-shadow: 0 25px 50px -12px rgba(193, 89, 43, 0.35);
+    }
+    .scroll-indicator {
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-8px); }
+      60% { transform: translateY(-4px); }
+    }
+  </style>
+</head>
+<body class="bg-black text-white selection:bg-brand selection:text-white">
+
+  <!-- Top Navigation Bar -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-black/85 backdrop-blur-md border-b border-white/10 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="/" class="flex flex-col text-decoration-none group">
+        <span class="text-sm font-bold tracking-widest uppercase text-white group-hover:text-brand transition-colors">SWEETY COLOUR DECORA</span>
+        <span class="text-[10px] tracking-wider uppercase text-neutral-400 font-mono">Spatial Visualizer &middot; Est. 2003</span>
+      </a>
+      <div class="flex items-center gap-4">
+        <a href="/" class="text-xs font-mono tracking-wider uppercase text-neutral-400 hover:text-white transition-colors px-3 py-1.5 border border-white/10 rounded">
+          &larr; Back to Main Site
+        </a>
+        <a href="/#enquiry" class="text-xs font-mono tracking-wider uppercase bg-brand text-white px-4 py-1.5 rounded hover:bg-[#a6471e] transition-colors">
+          Enquire
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Introductory Hero Banner -->
+  <div class="pt-32 pb-12 px-6 text-center max-w-4xl mx-auto">
+    <div class="inline-block px-3 py-1 mb-4 rounded-full border border-brand/40 bg-brand/10 text-brand text-xs font-mono tracking-widest uppercase">
+      ✦ Interactive Stack & Spread Technology
+    </div>
+    <h1 class="text-4xl sm:text-6xl font-serif font-light tracking-tight text-white mb-4">
+      Two Decades of Craftsmanship in Motion.
+    </h1>
+    <p class="text-neutral-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+      Scroll down to experience the interactive stack-spread physics engine. Watch the clustered cards fan out across spatial dimensions, revealing turnkey execution across India.
+    </p>
+  </div>
+
+  <!-- STACK SPREAD STAGE CONTAINER (350vh for smooth scroll dispersion) -->
+  <section id="stackStage" class="relative w-full" style="height: 350vh;">
+    <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+      
+      <!-- Centre Headline & Subtitle (Fades in dynamically) -->
+      <div id="centerText" class="pointer-events-none absolute inset-0 z-[5] flex flex-col items-center justify-center px-6 text-center opacity-0 transition-opacity duration-300">
+        <h2 class="text-[7vw] sm:text-[4.5vw] font-serif font-normal leading-none tracking-tight text-white">
+          Design <span class="text-brand opacity-80">That</span> Responds.
+        </h2>
+        <p class="mt-4 text-xs sm:text-[1.15vw] max-w-[46ch] text-neutral-400 leading-relaxed font-sans">
+          From book-matched Italian marble and Venetian plaster to high-rise commercial facades&mdash;craftsmanship calibrated to &plusmn;1mm laser tolerances.
+        </p>
+      </div>
+
+      <!-- Scattering Cards Layer -->
+      <div id="cardsLayer" class="absolute inset-0 z-10 pointer-events-none">
+        <!-- Cards dynamically placed via JS -->
+      </div>
+
+      <!-- Scroll Down Hint Indicator -->
+      <div id="scrollHint" class="pointer-events-none absolute inset-x-0 bottom-8 z-20 flex flex-col items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-neutral-400">
+        <span>Scroll to Scatter</span>
+        <svg class="w-4 h-4 text-brand scroll-indicator" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Post-Spread Architectural Gallery -->
+  <section class="py-24 px-6 border-t border-white/10 bg-[#050505]">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-brand font-mono text-xs uppercase tracking-widest">Turnkey Portfolio</span>
+        <h3 class="text-3xl font-serif text-white mt-2">Ready to Transform Your Space?</h3>
+        <p class="text-neutral-400 text-sm mt-3">Connect directly with our master contractors for turnkey residential finishing or commercial corporate fitouts.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-[#0A0A0A] border border-white/10 p-6 rounded">
+          <span class="text-brand font-mono text-xs">01 / MARBLE</span>
+          <h4 class="text-xl font-serif text-white mt-2 mb-3">Italian Statuario &amp; Granite</h4>
+          <p class="text-neutral-400 text-xs leading-relaxed">Laser-aligned zero lippage book-matching with diamond-crystallized 7-stage mirror finish.</p>
+        </div>
+        <div class="bg-[#0A0A0A] border border-white/10 p-6 rounded">
+          <span class="text-brand font-mono text-xs">02 / STUCCO</span>
+          <h4 class="text-xl font-serif text-white mt-2 mb-3">Venetian Plastering</h4>
+          <p class="text-neutral-400 text-xs leading-relaxed">Authentic lime-based Italian Marmorino and Grassello breathable mineral finishes.</p>
+        </div>
+        <div class="bg-[#0A0A0A] border border-white/10 p-6 rounded">
+          <span class="text-brand font-mono text-xs">03 / CEILINGS</span>
+          <h4 class="text-xl font-serif text-white mt-2 mb-3">POP &amp; Acoustic Gypsum</h4>
+          <p class="text-neutral-400 text-xs leading-relaxed">Shadowline perimeter channels, concealed LED cove lighting, and magnetic track systems.</p>
+        </div>
+      </div>
+      <div class="mt-16 text-center">
+        <a href="/#enquiry" class="inline-block bg-brand hover:bg-[#a6471e] text-white px-8 py-3 text-xs font-mono uppercase tracking-widest rounded transition-colors">
+          Book On-Site Consultation &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Scatter & Pointer Parallax Engine Script -->
+  <script>
+    const CARDS_DATA = [
+      {
+        src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1000&auto=format&fit=crop&q=85",
+        alt: "Commercial Facades",
+        stackOffset: { x: -8, y: -10 },
+        stackRotate: -18,
+        target: { x: -22, y: -32, rotate: 0, scale: 0.85, w: 18, h: 24 },
+        z: 2
+      },
+      {
+        src: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1000&auto=format&fit=crop&q=85",
+        alt: "POP & False Ceilings",
+        stackOffset: { x: 14, y: -10 },
+        stackRotate: 20,
+        target: { x: 30, y: -28, rotate: 0, scale: 0.9, w: 19, h: 32 },
+        z: 3
+      },
+      {
+        src: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=1000&auto=format&fit=crop&q=85",
+        alt: "Venetian Plaster",
+        stackOffset: { x: -16, y: 0 },
+        stackRotate: -4,
+        target: { x: -35, y: -2, rotate: 0, scale: 0.85, w: 16, h: 32 },
+        z: 4
+      },
+      {
+        src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1000&auto=format&fit=crop&q=85",
+        alt: "Prestige Villa",
+        stackOffset: { x: 1, y: -10 },
+        stackRotate: -2,
+        target: { x: 6, y: -30, rotate: 0, scale: 0.8, w: 24, h: 30 },
+        z: 5
+      },
+      {
+        src: "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1000&auto=format&fit=crop&q=85",
+        alt: "Contemporary Residence",
+        stackOffset: { x: 18, y: 1 },
+        stackRotate: 6,
+        target: { x: 36, y: 6, rotate: 0, scale: 0.85, w: 18, h: 32 },
+        z: 6
+      },
+      {
+        src: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1000&auto=format&fit=crop&q=85",
+        alt: "Craftsmen Execution",
+        stackOffset: { x: -6, y: 10 },
+        stackRotate: 6,
+        target: { x: -24, y: 32, rotate: 0, scale: 0.88, w: 22, h: 25 },
+        z: 7
+      },
+      {
+        src: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1000&auto=format&fit=crop&q=85",
+        alt: "Italian Marble",
+        stackOffset: { x: 8, y: 7 },
+        stackRotate: 3,
+        target: { x: 2, y: 34, rotate: 0, scale: 0.82, w: 20, h: 26 },
+        z: 8
+      },
+      {
+        src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&auto=format&fit=crop&q=85",
+        alt: "Emerald Heights Penthouse",
+        stackOffset: { x: 20, y: 12 },
+        stackRotate: -7,
+        target: { x: 28, y: 32, rotate: 0, scale: 0.9, w: 18, h: 22 },
+        z: 9
+      }
+    ];
+
+    const cardsLayer = document.getElementById('cardsLayer');
+    const stage = document.getElementById('stackStage');
+    const centerText = document.getElementById('centerText');
+    const scrollHint = document.getElementById('scrollHint');
+
+    // Create DOM card elements
+    const cardNodes = CARDS_DATA.map((card, idx) => {
+      const el = document.createElement('div');
+      el.className = 'card-element pointer-events-auto rounded-lg overflow-hidden border border-white/15 bg-neutral-900';
+      el.style.zIndex = card.z;
+      el.style.width = card.target.w + 'vw';
+      el.style.height = card.target.h + 'vh';
+
+      const img = document.createElement('img');
+      img.src = card.src;
+      img.alt = card.alt;
+      img.className = 'w-full h-full object-cover';
+      img.draggable = false;
+      el.appendChild(img);
+
+      cardsLayer.appendChild(el);
+      return { el, data: card };
+    });
+
+    // Pointer Parallax state
+    let pointerX = 0;
+    let pointerY = 0;
+    window.addEventListener('pointermove', (e) => {
+      pointerX = (e.clientX / window.innerWidth) * 2 - 1;
+      pointerY = (e.clientY / window.innerHeight) * 2 - 1;
+    });
+
+    // Scroll interpolation loop
+    function updatePhysics() {
+      const rect = stage.getBoundingClientRect();
+      const totalScrollable = stage.offsetHeight - window.innerHeight;
+      const currentScroll = -rect.top;
+      
+      let p = currentScroll / totalScrollable;
+      p = Math.max(0, Math.min(1, p));
+
+      // Ease progress (hold at 0.12, settle at 0.90)
+      const SCATTER_START = 0.12;
+      const SCATTER_END = 0.90;
+      let progress = 0;
+      if (p > SCATTER_START && p < SCATTER_END) {
+        progress = (p - SCATTER_START) / (SCATTER_END - SCATTER_START);
+      } else if (p >= SCATTER_END) {
+        progress = 1;
+      }
+
+      // Center text fade-in
+      if (progress > 0.3) {
+        const textOpacity = Math.min(1, (progress - 0.3) / 0.35);
+        centerText.style.opacity = textOpacity;
+        centerText.style.transform = 'scale(' + (0.85 + 0.15 * progress) + ')';
+      } else {
+        centerText.style.opacity = 0;
+      }
+
+      // Scroll hint fade-out
+      scrollHint.style.opacity = Math.max(0, 1 - (p / SCATTER_START));
+
+      // Update card transforms
+      cardNodes.forEach(({ el, data }, idx) => {
+        const tx = data.stackOffset.x + (data.target.x - data.stackOffset.x) * progress;
+        const ty = data.stackOffset.y + (data.target.y - data.stackOffset.y) * progress;
+        const rot = data.stackRotate + (data.target.rotate - data.stackRotate) * progress;
+        const sc = 0.82 + (data.target.scale - 0.82) * progress;
+
+        // Pointer Parallax drift
+        const depth = 0.55 + (idx / (CARDS_DATA.length - 1)) * 0.75;
+        const dx = tx - pointerX * 2.6 * depth * progress;
+        const dy = ty - pointerY * 2.2 * depth * progress;
+
+        el.style.transform = `translate(calc(-50% + ${dx}vw), calc(-50% + ${dy}vh)) rotate(${rot}deg) scale(${sc})`;
+      });
+
+      requestAnimationFrame(updatePhysics);
+    }
+
+    requestAnimationFrame(updatePhysics);
+  </script>
+
+</body>
+</html>

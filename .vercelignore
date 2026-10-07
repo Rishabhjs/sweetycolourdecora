@@ -1,0 +1,9 @@
+.env
+.env.*
+construction.sqlite
+construction.sqlite-shm
+construction.sqlite-wal
+node_modules
+.vercel
+.git
+.DS_Store

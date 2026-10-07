@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" width="100%" height="100%" fill="none">
+  <style>
+    .scd-word-mid { fill: #243042; }
+    .scd-tagline { fill: #3A4659; }
+    @media (prefers-color-scheme: dark) {
+      .scd-word-mid { fill: #FFFFFF; }
+      .scd-tagline { fill: #CBD5E1; }
+    }
+    :root[data-theme="dark"] .scd-word-mid { fill: #FFFFFF !important; }
+    :root[data-theme="dark"] .scd-tagline { fill: #CBD5E1 !important; }
+  </style>
+  <defs>
+    <!-- Pastel Architectural Gradient matching the card logo -->
+    <linearGradient id="scdGradient" x1="10%" y1="20%" x2="90%" y2="85%">
+      <stop offset="0%" stop-color="#E28F8A" />
+      <stop offset="28%" stop-color="#EAA394" />
+      <stop offset="60%" stop-color="#DCB27E" />
+      <stop offset="85%" stop-color="#9BB4A9" />
+      <stop offset="100%" stop-color="#7397A7" />
+    </linearGradient>
+  </defs>
+
+  <!-- EMBLEM GROUP (House + Paintbrush + Tulip) -->
+  <g stroke="url(#scdGradient)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Chimney -->
+    <path d="M 218 56 L 218 36 L 228 36 L 228 47" />
+
+    <!-- Roof slope -->
+    <path d="M 194 76 L 244 26 L 254 36" />
+
+    <!-- Left wall -->
+    <path d="M 207 72 L 207 106 L 214 106" />
+
+    <!-- Bottom floor / boundary -->
+    <path d="M 224 106 L 278 106" />
+
+    <!-- Right vertical boundary -->
+    <path d="M 278 106 L 278 54" />
+
+    <!-- Paintbrush (angled at ~42deg) -->
+    <!-- Handle -->
+    <path d="M 220 102 C 217 99 218 93 222 88 C 226 84 229 84 231 77 L 232 74 C 233 72 235 71 237 72 L 249 84 C 250 86 249 88 247 89 L 244 90 C 237 92 237 95 233 99 C 228 103 223 104 220 102 Z" />
+    <!-- Handle hole -->
+    <circle cx="222.5" cy="98.5" r="1.6" fill="url(#scdGradient)" stroke="none" />
+    <!-- Brush body & bristles -->
+    <path d="M 235 70 L 258 47 C 260 45 264 45 266 47 L 274 55" />
+    <path d="M 248 83 L 271 60" />
+    <!-- Bristle tips -->
+    <path d="M 252 53 L 261 44" />
+    <path d="M 261 62 L 270 53" />
+
+    <!-- Flower (Tulip) on the right -->
+    <!-- Central petal -->
+    <path d="M 278 54 C 274 46 274 38 278 30 C 282 38 282 46 278 54 Z" />
+    <!-- Left petal -->
+    <path d="M 278 52 C 271 50 266 43 268 34 C 274 33 277 38 278 44" />
+    <!-- Right petal -->
+    <path d="M 278 52 C 285 50 290 43 288 34 C 282 33 279 38 278 44" />
+
+    <!-- Leaves on stem -->
+    <path d="M 278 68 C 269 66 264 73 267 80 C 274 81 278 74 278 68 Z" />
+    <path d="M 278 86 C 287 84 292 91 289 98 C 282 99 278 92 278 86 Z" />
+  </g>
+
+  <!-- BRAND WORDMARK -->
+  <text x="260" y="148" text-anchor="middle" font-family="'Cinzel', 'Fraunces', 'Times New Roman', serif" font-size="28" font-weight="500" letter-spacing="4">
+    <tspan fill="#E28F8A">SWEETY </tspan>
+    <tspan fill="#243042" class="scd-word-mid">COLOUR </tspan>
+    <tspan fill="#7397A7">DECORA</tspan>
+  </text>
+
+  <!-- TAGLINE -->
+  <text x="260" y="174" text-anchor="middle" font-family="'Inter', 'Plus Jakarta Sans', sans-serif" font-size="9.5" font-weight="500" letter-spacing="3.5" fill="#3A4659" class="scd-tagline">
+    CONSTRUCTION  •  PAINTING  •  INTERIORS
+  </text>
+</svg>

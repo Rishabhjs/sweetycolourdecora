@@ -1,0 +1,167 @@
+{
+  "currency": "INR",
+  "currencySymbol": "₹",
+  "lastUpdated": "2026-09-11",
+  "contingencyPercent": 10,
+  "variancePercent": 15,
+  "minimumProjectCost": 150000,
+  "cities": {
+    "Bengaluru": {
+      "name": "Bengaluru",
+      "laborMultiplier": 1,
+      "materialMultiplier": 1,
+      "calibrated": true
+    },
+    "Mumbai": {
+      "name": "Mumbai",
+      "laborMultiplier": 1.2,
+      "materialMultiplier": 1.1,
+      "calibrated": true
+    },
+    "Delhi NCR": {
+      "name": "Delhi NCR",
+      "laborMultiplier": 1.1,
+      "materialMultiplier": 1.05,
+      "calibrated": true
+    },
+    "Hyderabad": {
+      "name": "Hyderabad",
+      "laborMultiplier": 0.95,
+      "materialMultiplier": 0.98,
+      "calibrated": true
+    },
+    "Chennai": {
+      "name": "Chennai",
+      "laborMultiplier": 0.98,
+      "materialMultiplier": 1,
+      "calibrated": true
+    },
+    "Pune": {
+      "name": "Pune",
+      "laborMultiplier": 1.05,
+      "materialMultiplier": 1.02,
+      "calibrated": true
+    },
+    "Kolkata": {
+      "name": "Kolkata",
+      "laborMultiplier": 0.88,
+      "materialMultiplier": 0.95,
+      "calibrated": true
+    },
+    "Ahmedabad": {
+      "name": "Ahmedabad",
+      "laborMultiplier": 0.92,
+      "materialMultiplier": 0.94,
+      "calibrated": true
+    },
+    "Other": {
+      "name": "Other Cities",
+      "laborMultiplier": 1,
+      "materialMultiplier": 1,
+      "calibrated": false
+    }
+  },
+  "rates": {
+    "flooring": {
+      "name": "Flooring Systems",
+      "unit": "sq.ft",
+      "basic": 120,
+      "standard": 220,
+      "premium": 450,
+      "luxury": 800,
+      "description": "Vitrified tiles, natural stone, marble polishing, screed leveling"
+    },
+    "painting": {
+      "name": "Painting & Surface Coating",
+      "unit": "sq.ft",
+      "basic": 25,
+      "standard": 42,
+      "premium": 75,
+      "luxury": 130,
+      "description": "Putty smoothing, primer, acrylic emulsion, architectural texture"
+    },
+    "false_ceiling": {
+      "name": "POP & False Ceilings",
+      "unit": "sq.ft",
+      "basic": 105,
+      "standard": 155,
+      "premium": 260,
+      "luxury": 420,
+      "description": "Gypsum board framing, concealed LED cove, acoustic panels"
+    },
+    "lighting": {
+      "name": "Architectural Lighting",
+      "unit": "fixed_per_room",
+      "basic": 30000,
+      "standard": 65000,
+      "premium": 125000,
+      "luxury": 220000,
+      "description": "Recessed COB spotlights, magnetic tracks, linear profile LED, smart drivers"
+    },
+    "modular_kitchen": {
+      "name": "Modular Kitchen",
+      "unit": "lumpsum",
+      "basic": 150000,
+      "standard": 320000,
+      "premium": 620000,
+      "luxury": 1100000,
+      "description": "Marine ply, soft-close Blum hardware, quartz countertop, acrylic shutters"
+    },
+    "wardrobes": {
+      "name": "Wardrobes & Joinery",
+      "unit": "sq.ft",
+      "basic": 1250,
+      "standard": 1850,
+      "premium": 3100,
+      "luxury": 4800,
+      "description": "Floor-to-ceiling sliding/hinged wardrobes, internal drawers, PU finish"
+    },
+    "electrical": {
+      "name": "Electrical & Automation",
+      "unit": "fixed_per_room",
+      "basic": 22000,
+      "standard": 45000,
+      "premium": 95000,
+      "luxury": 180000,
+      "description": "Concealed conduit wiring, modular switches, DB distribution, dimmers"
+    },
+    "furniture": {
+      "name": "Custom Architectural Furniture",
+      "unit": "fixed_per_room",
+      "basic": 80000,
+      "standard": 180000,
+      "premium": 360000,
+      "luxury": 650000,
+      "description": "Bespoke sofa sets, upholstered beds, consoles, accent armchairs"
+    },
+    "bathroom": {
+      "name": "Bathroom & Sanitary Refurbishment",
+      "unit": "fixed_per_room",
+      "basic": 60000,
+      "standard": 120000,
+      "premium": 240000,
+      "luxury": 450000,
+      "description": "Waterproofing, wall tile cladding, diverters, counter basins, glass partitions"
+    },
+    "doors_windows": {
+      "name": "Doors & Window Jambs",
+      "unit": "fixed_per_room",
+      "basic": 25000,
+      "standard": 55000,
+      "premium": 110000,
+      "luxury": 195000,
+      "description": "Flush door veneering, granite window jambs, architectural hardware"
+    }
+  },
+  "defaultRoomSizes": {
+    "Living Room": 280,
+    "Bedroom": 180,
+    "Kitchen": 120,
+    "Dining Room": 150,
+    "Bathroom": 60,
+    "Office": 160,
+    "Exterior": 350,
+    "Full Home": 1250,
+    "Other": 200
+  }
+}

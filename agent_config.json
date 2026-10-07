@@ -1,0 +1,17 @@
+{
+  "activeMode": "native",
+  "modes": {
+    "native": {
+      "enabled": true
+    },
+    "mindstudio": {
+      "enabled": false,
+      "embedUrl": "https://app.mindstudio.ai/app/sweety-decora-demo"
+    },
+    "mindpal": {
+      "enabled": false,
+      "agentId": "agt_sweety_demo_123"
+    }
+  },
+  "lastUpdated": "2026-09-10T20:39:28.377Z"
+}

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Decora — Room intake</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFE9DC;
+    --paper-deep:#E4DCC9;
+    --ink:#2A251D;
+    --ink-soft:#635A49;
+    --ink-faint:#9C917C;
+    --line:#D6CBAF;
+    --line-strong:#B8AA85;
+    --clay:#A84A2A;
+    --clay-deep:#7C351D;
+    --clay-fill:#F3DDCE;
+    --forest:#3B4A3C;
+    --forest-fill:#DEE5D9;
+    --card:#F8F5EC;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    padding
+<truncated 18595 bytes>
+
+<summary>
+### 1. Task Overview
+- **User Requests**:
+  1. `"i want to fix the homepage as past"`: Reverted the experimental 260vh scroll-expansion hero back to the original clean, fast, authoritative homepage hero layout (`rocket-hero`, quickstart prompt bar, 4 buttons, on-site video reel, followed by starting points, portfolio, materials, process, FAQ, and enquiry).
+  2. `"this my ai page i want to match it with my ai page <!DOCTYPE html>..."`: The user provided the complete HTML and CSS for their bespoke **"Decora — Room intake"** design (`font-family: 'Fraunces', serif`, editorial warm paper `--paper: #EFE9DC`, `--clay: #A84A2A`, `--forest: #3B4A3C`, 8 SVG icon tiles for room types, color swatch chips for design styles, range slider with readout, budget ledger with radio marks, location selector with metro index badge, multi-select change tags, "Generate my concept" button, and sticky right-hand rationale card with circled numbers and rate configurator link).
+  3. **Goal**: Redesign the AI Studio (`#ai-design-studio` in `index.html`, `styles.css`, and `ai_studio.js`, plus a dedicated standalone page `/intake` or `/ai-intake` if appropriate) to match the user's intake template 1:1, while preserving all live backend AI integration, image upload, preset switching, Before/After slider results, BOQ estimation, and dark/light mode compatibility.
+
+### 2. Progress
+- **Completed**:
+  1. **Homepage Reversion**:
+     - `index.html`: Replaced `.scroll-expansion-hero-track` with the original `<section class="section hero rocket-hero" id="hero">`.
+     - `app.js`: Removed the scroll-expansion event listeners and rAF animation loop.
+     - `styles.css`: Removed all `.scroll-expansion-*` CSS rules.
+     - Verified all past sections (`rocket-hero`, `rocket-quickstart-wrap`, `ambient-video-container`, `starting-points`, `portfolio`, `materials`, `process`, `faq`, `enquiry`) are intact and returning HTTP 200.
+  2. **Analysis of User's Intake Template**:
+     - Fully analyzed the user's provided HTML/CSS structure, fonts (`Fraunces`, `Inter`), CSS custom properties, responsive grid (`1.55fr 1fr`), custom SVG tile icons, swatches, slider, ledger, tags, and aside card.
+- **In Progress / Next Step**:
+  - Replace the markup of `#ai-design-studio` in `index.html` with the user's exact panel and aside structure.
+  - Append the user's intake styling into `styles.css` with dark mode overrides for `#000000`/`#0A0A0A`.
+  - Update `ai_studio.js` to bind to the user's intake selectors:
+    - Tile grid `[data-group="space"]` for Room Type.
+    - Swatch row `[data-group="style"]` for Design Style.
+    - Area slider `#areaSlider` and readout `#areaVal`.
+    - Budget ledger `[data-group="budget"]`.
+    - City dropdown `#aiCitySelect` & `#aiCityMultiplierBadge`.
+    - Tag row `#tagRow .tag` for multi-select change scope.
+    - Submit button `#aiSubmitBtn` ("Generate my concept") triggering `/api/ai-design/analyze` and rendering the Before/After results below.
+    - Presets row `.preset-chip` triggering sample rooms.
+
+### 3. Key Findings
+- **Intake Structure**:
+  - Left column (`.panel`):
+    - `.kicker`: `New project`
+    - `h1`: `Tell us about the room` (`font-family: 'Fraunces', serif`)
+    - `.lede`: `A photo and a few details are enough to generate a grounded renovation concept...`
+    - `.upload`: dashed border, SVG icon, camera button, preset chips (`Modern living room`, `Master bedroom`, `Contemporary kitchen`).
+    - Section 1: `Room type` &rarr; 8 `.tile` items with custom SVG paths (`Living room`, `Bedroom`, `Kitchen`, `Dining`, `Bathroom`, `Office`, `Exterior`, `Full home`).
+    - Section 2: `Design style` &rarr; 9 `.swatch` items with color chips (`Modern`, `Minimal`, `Luxury`, `Contemporary`, `Scandinavian`, `Traditional`, `Industrial`, `Japandi`, `Indian contemporary`).
+    - Section 3: `Floor area` &rarr; Range slider (min 80, max 2000, val 280) and `#areaVal` readout.
+    - Section 4: `Budget range` &rarr; `.ledger` with 5 `.ledger-row` radio rows (`₹5 – 10 lakhs`, `₹10 – 20 lakhs`, etc.).
+    - Section 5: `City` &rarr; `<select>` and `.index-badge` (`1.05× metro index`).
+    - Section 6: `What do you want to change` &rarr; 12 `.tag` items.
+    - Submit: `<button class="submit" id="aiSubmitBtn">Generate my concept</button>`.
+  - Right column (`.aside`):
+    - Sticky card with dark ink background, Fraunces serif headings, 3 numbered circles (`1`, `2`, `3`), and `.aside-cta` box linking to `#openAdminPricingBtn`.
+- **Preserved Backend & Results**:
+  - Below or attached to the intake form, keep `#aiLoadingContainer` and `#aiResultsContainer` (Before/After split slider, 3-block facts/estimations/unknowns, recommended materials BOQ table, and indicative estimate breakdown).
+  - Also ensure `#consultationModal` and `#adminPricingModal` continue to work when triggered.
+
+### 4. Active Context
+- **Workspace**: `C:\Users\SRUSHTI SHAH\.gemini\antigravity\scratch\sweety-colour-decora`
+- **Server**: Running on `http://localhost:3000/` (`task-2405` background daemon).
+- **Files to Modify**:
+  - `index.html`: Update `<section id="ai-design-studio">` intake markup to match user's template.
+  - `styles.css`: Add user's CSS classes (`.panel`, `.kicker`, `.upload`, `.tile-grid`, `.tile`, `.swatch-row`, `.swatch`, `.area-readout`, `.ledger`, `.ledger-row`, `.aside`, `.feature`, etc.) and dark mode adaptations.
+  - `ai_studio.js`: Ensure event listeners target both the new tile/swatch/ledger elements and maintain state.
+
+### 5. Next Steps
+1. **Update `index.html`**: Replace the current AI intake form content inside `#ai-design-studio` with the user's exact `.wrap`, `.panel`, and `.aside` structure, embedding the hidden file inputs and keeping the loading and results container below.
+2. **Update `styles.css`**: Append the user's styling rules for `.wrap`, `.panel`, `.kicker`, `.upload`, `.tile-grid`, `.tile`, `.swatch-row`, `.swatch`, `.area-row`, `.ledger`, `.ledger-row`, `.tag-row`, `.aside`, `.feature`, and dark theme overrides.
+3. **Update `ai_studio.js`**: Connect event handlers to the new `.tile`, `.swatch`, `.ledger-row`, and `#tagRow .tag` elements, keeping the preset buttons and `/api/ai-design/analyze` submission working.
+4. **Verify**: Test on `http://localhost:3000/` ensuring the intake form matches the user's design 1:1 in both light and dark modes and successfully renders the results dashboard upon submission.
+
+### 6. Commitments & Constraints
+- **Match 1:1 with User's Template**: Implement the exact typography (`Fraunces`), colors, icons, layout, and copy provided by the user.
+- **Support Pitch Black Dark Mode**: Ensure dark mode gracefully handles the user's warm paper aesthetic with pure pitch black (`#000000`/`#0A0A0A`) without brown hues.
+- **Preserve Full AI Functionality**: File upload, camera upload, presets, Before/After slider, and cost calculation must remain fully functional.
+</summary>
+
+You have the 39 following artifacts written to the artifacts directory:
+
+[ARTIFACT: media_1789094611715]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.tempmediaStorage/media_1789094611715.png
+Last Edited: 2026-09-11T02:43:31Z
+
+[ARTIFACT: media_1789094969140]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.tempmediaStorage/media_1789094969140.png
+Last Edited: 2026-09-11T02:49:29Z
+
+[ARTIFACT: media_1789068478442]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789068478442.png
+Last Edited: 2026-09-10T19:28:20Z
+
+[ARTIFACT: media_1789068805822]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789068805822.png
+Last Edited: 2026-09-10T19:33:32Z
+
+[ARTIFACT: media_1789069460165]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789069460165.png
+Last Edited: 2026-09-10T19:45:12Z
+
+[ARTIFACT: media_1789069471577]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789069471577.png
+Last Edited: 2026-09-10T19:45:12Z
+
+[ARTIFACT: media_1789069478313]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789069478313.png
+Last Edited: 2026-09-10T19:45:12Z
+
+[ARTIFACT: media_1789069488524]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789069488524.png
+Last Edited: 2026-09-10T19:45:12Z
+
+[ARTIFACT: media_1789069495043]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789069495043.png
+Last Edited: 2026-09-10T19:45:12Z
+
+[ARTIFACT: media_1789069513491]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789069513491.png
+Last Edited: 2026-09-10T19:46:11Z
+
+[ARTIFACT: media_1789069526033]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789069526033.png
+Last Edited: 2026-09-10T19:46:11Z
+
+[ARTIFACT: media_1789069540559]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789069540559.png
+Last Edited: 2026-09-10T19:46:11Z
+
+[ARTIFACT: media_1789069548942]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789069548942.png
+Last Edited: 2026-09-10T19:46:11Z
+
+[ARTIFACT: media_1789069562252]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789069562252.png
+Last Edited: 2026-09-10T19:46:11Z
+
+[ARTIFACT: media_1789069583252]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789069583252.png
+Last Edited: 2026-09-10T19:46:59Z
+
+[ARTIFACT: media_1789069595850]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789069595850.png
+Last Edited: 2026-09-10T19:46:59Z
+
+[ARTIFACT: media_1789071652275]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789071652275.png
+Last Edited: 2026-09-10T20:21:11Z
+
+[ARTIFACT: media_1789072791595]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789072791595.png
+Last Edited: 2026-09-10T20:40:41Z
+
+[ARTIFACT: media_1789072802349]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789072802349.png
+Last Edited: 2026-09-10T20:40:41Z
+
+[ARTIFACT: media_1789072809932]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789072809932.png
+Last Edited: 2026-09-10T20:40:41Z
+
+[ARTIFACT: media_1789072930231]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789072930231.png
+Last Edited: 2026-09-10T20:44:13Z
+
+[ARTIFACT: media_1789073078587]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789073078587.png
+Last Edited: 2026-09-10T20:48:02Z
+
+[ARTIFACT: media_1789094259558]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789094259558.png
+Last Edited: 2026-09-11T02:38:47Z
+
+[ARTIFACT: media_1789094699132]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789094699132.png
+Last Edited: 2026-09-11T02:45:51Z
+
+[ARTIFACT: media_1789094712783]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789094712783.png
+Last Edited: 2026-09-11T02:45:51Z
+
+[ARTIFACT: media_1789094786812]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789094786812.png
+Last Edited: 2026-09-11T02:48:18Z
+
+[ARTIFACT: media_1789097634831]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.user_uploaded/media_1789097634831.png
+Last Edited: 2026-09-11T03:34:06Z
+
+[ARTIFACT: implementation_plan]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/implementation_plan.md
+Last Edited: 2026-09-11T03:33:01Z
+
+[ARTIFACT: check_home]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/scratch/check_home.js
+Last Edited: 2026-09-11T04:50:22Z
+
+[ARTIFACT: clean_index]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/scratch/clean_index.js
+Last Edited: 2026-09-11T03:04:39Z
+
+[ARTIFACT: create_hero_component]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/scratch/create_hero_component.js
+Last Edited: 2026-09-11T04:32:12Z
+
+[ARTIFACT: create_stack_spread]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/scratch/create_stack_spread.js
+Last Edited: 2026-09-11T04:21:05Z
+
+[ARTIFACT: find_browns]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/scratch/find_browns.js
+Last Edited: 2026-09-11T03:46:08Z
+
+[ARTIFACT: find_ids]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/scratch/find_ids.js
+Last Edited: 2026-09-11T03:07:03Z
+
+[ARTIFACT: find_theme]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/scratch/find_theme.js
+Last Edited: 2026-09-11T03:35:19Z
+
+[ARTIFACT: get_step_2475]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/scratch/get_step_2475.js
+Last Edited: 2026-09-11T05:38:17Z
+
+[ARTIFACT: test_dark_mode]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/scratch/test_dark_mode.js
+Last Edited: 2026-09-11T03:37:25Z
+
+[ARTIFACT: test_server]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/scratch/test_server.js
+Last Edited: 2026-09-11T03:32:56Z
+
+[ARTIFACT: walkthrough]
+Path: file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/walkthrough.md
+Last Edited: 2026-09-11T04:51:10Z
+
+# Running Background Tasks
+The following background tasks were running at the time this checkpoint was created.
+Use the manage_task tool to interact with them (e.g. to kill them or check their status).
+
+{
+  "taskId": "0b9a8368-7a61-4d2e-8b02-850aa0283ff3/task-2405",
+  "toolName": "run_command",
+  "toolSummary": "Start node server.js on port 3000",
+  "description": "node server.js",
+  "startTime": "2026-09-11T04:24:27.985929200Z",
+  "stepIndex": 2405,
+  "logUri": "file:///C:/Users/SRUSHTI%20SHAH/.gemini/antigravity/brain/0b9a8368-7a61-4d2e-8b02-850aa0283ff3/.system_generated/tasks/task-2405.log",
+  "isDaemon": true
+}

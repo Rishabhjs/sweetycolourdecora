@@ -1,0 +1,28 @@
+{
+  "name": "sweety-colour-decora",
+  "version": "2.0.0",
+  "description": "Sweety Colour Decora — Architectural Studio, AI Estimator & Construction OS",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "migrate:supabase": "node migrate_to_supabase.js"
+  },
+  "keywords": [
+    "interior-design",
+    "architecture",
+    "construction-os",
+    "ai-design",
+    "cost-estimator",
+    "supabase",
+    "vercel"
+  ],
+  "author": "Sweety Colour Decora",
+  "license": "ISC",
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0"
+  }
+}
