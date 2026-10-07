@@ -80,6 +80,48 @@ const server = http.createServer(async (req, res) => {
   const db = getDatabase();
 
   // ==========================================
+  // PUBLIC AI AGENT WIDGET
+  // ==========================================
+  if (pathname === '/api/agent/config' && req.method === 'GET') {
+    try {
+      return sendJson(res, 200, { success: true, config: loadAgentConfig() });
+    } catch (e) {
+      return sendJson(res, 500, { success: false, error: e.message });
+    }
+  }
+
+  if (pathname === '/api/agent/config' && req.method === 'POST') {
+    try {
+      const payload = await readJsonBody(req);
+      const config = payload.config;
+      const supportedModes = ['native', 'mindstudio', 'mindpal'];
+      if (!config || typeof config !== 'object' || !supportedModes.includes(config.activeMode)) {
+        return sendJson(res, 400, { success: false, error: 'Invalid agent configuration.' });
+      }
+      return sendJson(res, 200, { success: true, config: saveAgentConfig(config) });
+    } catch (e) {
+      return sendJson(res, 500, { success: false, error: e.message });
+    }
+  }
+
+  if (pathname === '/api/agent/chat' && req.method === 'POST') {
+    try {
+      const payload = await readJsonBody(req);
+      if (typeof payload.message !== 'string' || !payload.message.trim()) {
+        return sendJson(res, 400, { success: false, error: 'A message is required.' });
+      }
+      const response = await processAgentChat({
+        ...payload,
+        history: Array.isArray(payload.history) ? payload.history : []
+      });
+      return sendJson(res, 200, response);
+    } catch (e) {
+      console.error('Error in /api/agent/chat:', e);
+      return sendJson(res, 500, { success: false, error: 'The agent could not process this message.' });
+    }
+  }
+
+  // ==========================================
   // 1. PUBLIC AI DESIGN STUDIO & ESTIMATION
   // ==========================================
   if (pathname === '/api/ai-design/analyze' && req.method === 'POST') {

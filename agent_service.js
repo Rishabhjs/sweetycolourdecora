@@ -119,8 +119,8 @@ async function processAgentChat(payload) {
         style: detectedStyle,
         areaSqFt: area,
         city: detectedCity,
-        expectedCost: calculatedEstimate.expectedFormatted,
-        range: calculatedEstimate.rangeFormatted
+        expectedCost: calculatedEstimate.summary.expectedFormatted,
+        range: calculatedEstimate.summary.rangeFormatted
       }
     };
   }
@@ -134,7 +134,7 @@ async function processAgentChat(payload) {
           content: `You are the Senior Architectural Estimator & AI Consultant for Sweety Colour Decora, an Indian finishing contractor established in 2003 with ~100 daily tradespeople across 6 core trades (Painting, Flooring, POP, Putty, Granite, Italian Marble, Modular Joinery). GSTIN: 24AAAAA0000A1Z5.
 Be concise, engineering-minded, courteous, and authoritative.
 Reference real trade details (Asian Paints Royale, Saint-Gobain Gypsum, Italian Botticino/Statuario marble, Blum modular hardware).
-${calculatedEstimate ? `Calculated Estimate details: Expected: ${calculatedEstimate.expectedFormatted}, Range: ${calculatedEstimate.rangeFormatted}, City: ${calculatedEstimate.city} (${pricingDb.cities[calculatedEstimate.city]}x index). Area: ${calculatedEstimate.areaSqFt} sq.ft.` : ''}
+${calculatedEstimate ? `Calculated Estimate details: Expected: ${calculatedEstimate.summary.expectedFormatted}, Range: ${calculatedEstimate.summary.rangeFormatted}, City: ${calculatedEstimate.city} (${pricingDb.cities[calculatedEstimate.city]}x index). Area: ${calculatedEstimate.areaSqFt} sq.ft.` : ''}
 Mandatory Disclaimer to include if costs are mentioned: "This is an AI-generated preliminary estimate based on standard rate tables; final pricing requires physical laser measurement."`
         }
       ];
@@ -187,13 +187,13 @@ function generateCalibratedAgentResponse(userMsg, room, style, city, estimate, s
   if (estimate) {
     return {
       success: true,
-      reply: `Based on Sweety Colour Decora's verified contractor rate schedule, a **${estimate.areaSqFt} sq.ft ${room}** in **${city}** (${style} specification) is estimated at **${estimate.expectedFormatted}** (approximate range **${estimate.rangeFormatted}**).
+      reply: `Based on Sweety Colour Decora's verified contractor rate schedule, a **${estimate.areaSqFt} sq.ft ${room}** in **${city}** (${style} specification) is estimated at **${estimate.summary.expectedFormatted}** (approximate range **${estimate.summary.rangeFormatted}**).
 
 **Itemized Scope Included:**
-• **Flooring Systems**: Vitrified / natural stone overlay (~₹${estimate.breakdown.find(b=>b.key==='flooring')?.costFormatted || '60,000'})
-• **Painting & Texture**: 2-coat primer, acrylic putty, luxury washable emulsion (~₹${estimate.breakdown.find(b=>b.key==='painting')?.costFormatted || '37,000'})
-• **POP False Ceiling**: Gypsum board framing with concealed ambient LED coves (~₹${estimate.breakdown.find(b=>b.key==='false_ceiling')?.costFormatted || '43,000'})
-• **Architectural Lighting**: Magnetic track profiles & COB spotlights (~₹${estimate.breakdown.find(b=>b.key==='lighting')?.costFormatted || '65,000'})
+• **Flooring Systems**: Vitrified / natural stone overlay (~${estimate.itemizedBreakdown.find(b=>b.key==='flooring')?.costFormatted || '₹60,000'})
+• **Painting & Texture**: 2-coat primer, acrylic putty, luxury washable emulsion (~${estimate.itemizedBreakdown.find(b=>b.key==='painting')?.costFormatted || '₹37,000'})
+• **POP False Ceiling**: Gypsum board framing with concealed ambient LED coves (~${estimate.itemizedBreakdown.find(b=>b.key==='false_ceiling')?.costFormatted || '₹43,000'})
+• **Architectural Lighting**: Magnetic track profiles & COB spotlights (~${estimate.itemizedBreakdown.find(b=>b.key==='lighting')?.costFormatted || '₹65,000'})
 • **Contingency Buffer**: 10% substrate prep & site variance buffer included.
 
 *Note: ${estimate.disclaimer}*
